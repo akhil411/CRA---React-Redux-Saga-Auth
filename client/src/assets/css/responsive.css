@@ -1,0 +1,6 @@
+@media screen and (min-width: 576px) {
+  .navbar-right-section {
+    position: absolute;
+    right: 20px;
+  }
+}
