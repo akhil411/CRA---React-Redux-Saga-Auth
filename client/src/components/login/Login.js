@@ -3,8 +3,8 @@ import { Form, Button } from 'react-bootstrap';
 import API from "../../api/api";
 import { toast } from "react-toastify";
 
-function Register({ history }) {
-    const [userData, setUserData] = useState({ name: "", email: "", password: "", confirmPassword: "" });
+function Login({ history }) {
+    const [userData, setUserData] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({});
 
     function handleChange(event) {
@@ -20,13 +20,11 @@ function Register({ history }) {
     }
 
     function formIsValid() {
-        const { name, email, password, confirmPassword } = userData;
+        const { email, password } = userData;
         const errors = {};
 
-        if (!name) errors.name = "*Name is required.";
         if (!email) errors.email = "*Email is required";
         if (!password) errors.password = "*Password is required";
-        if (!confirmPassword) errors.confirmPassword = "*Confirm password is required"
 
         setErrors(errors);
         return Object.keys(errors).length === 0;
@@ -34,16 +32,17 @@ function Register({ history }) {
 
     function handleSave(event) {
         event.preventDefault();
-        setUserData({ name: "", email: "", password: "", confirmPassword: "" });
+        setUserData({ email: "", password: "" });
         if (!formIsValid()) return;
-        API.registerUser(userData)
-            .then(() => {
-                toast.success("Register Success!!!")
-                history.push("/login");
-            })
-            .catch((err) => {
-                console.log(err.response);
-            })
+        history.push("/news");
+        // API.loginUser(userData)
+        //     .then(() => {
+        //         toast.success("Register Success!!!")
+        //         history.push("/login");
+        //     })
+        //     .catch((err) => {
+        //         console.log(err.response);
+        //     })
         // setSaving(true);
         // saveCourse(course)
         //     .then(() => {
@@ -59,17 +58,6 @@ function Register({ history }) {
     return (
         <div className="register-form">
             <Form onSubmit={handleSave}>
-                <Form.Group controlId="formBasicName">
-                    <Form.Label>Your Name</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder=""
-                        name="name"
-                        value={userData.name}
-                        onChange={handleChange}
-                    />
-                    {errors.name ? <div className="form-error">{errors.name}</div> : null}
-                </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Your Email address</Form.Label>
                     <Form.Control
@@ -92,29 +80,12 @@ function Register({ history }) {
                     />
                     {errors.password ? <div className="form-error">{errors.password}</div> : null}
                 </Form.Group>
-                <Form.Group controlId="formBasicConfirmPassword">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder=""
-                        name="confirmPassword"
-                        value={userData.confirmPassword}
-                        onChange={handleChange}
-                    />
-                    {errors.confirmPassword ? <div className="form-error">{errors.confirmPassword}</div> : null}
-                </Form.Group>
-                <Form.Group controlId="formBasicCheckbox">
-                    <Form.Check
-                        type="checkbox"
-                        label="Show Password"
-                    />
-                </Form.Group>
                 <Button variant="primary" type="submit">
-                    Register
+                    Login
                 </Button>
             </Form>
         </div>
     )
 }
 
-export default Register;
+export default Login;

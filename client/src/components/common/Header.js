@@ -11,7 +11,7 @@ const Header = () => {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto navbar-right-section">
                     <NavLink to="/register" activeStyle={activeStyle} className="nav-link">Register</NavLink>
-                    <NavLink to="/about" activeStyle={activeStyle} className="nav-link">Login</NavLink>
+                    <NavLink to="/login" activeStyle={activeStyle} className="nav-link">Login</NavLink>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
