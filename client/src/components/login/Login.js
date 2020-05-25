@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { loginUser } from "../../redux/actions/action";
@@ -85,22 +85,19 @@ function Login({ history, loginUser, user, article }) {
                     Login
                 </Button>
                 <Link to="/news">
-                <Button variant="primary" type="submit">
-                    News
+                    <Button variant="primary" type="submit">
+                        News
                 </Button>
                 </Link>
+                {(article) ? (
+                    article.map((item) => (
+                        <h1>{item.title}</h1>
+                    ))
+                ) : (<h2>nothing</h2>)}
+
                 {(user) ? (
-                <h2>{user}</h2>
-            ) : (<h2>nothing</h2>)}
-                        {console.log({ article })}
-            {(article) ? (
-                article.map((item) => (
-                    <h1>{item.title}</h1>
-                ))
-            ) : (<h2>nothing</h2>)}
-            {(user) ? (
-                <h2>{user}</h2>
-            ) : (<h2>nothing</h2>)}
+                    console.log(user)
+                ) : (null)}
             </Form>
         </div>
     )
@@ -111,7 +108,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => ({
-    user: state.log,
+    user: state.user,
     article: state.news,
 });
 

@@ -6,8 +6,8 @@ const reducer = (state = {}, action) => {
             return { ...state, loading: true };
         case 'NEWS_RECEIVED':
             return { ...state, news: action.json, loading: false };
-        case 'LOGIN_USER_RESPONSE':
-            return { ...state, log: action.json, loading: false };
+        case 'SET_CURRENT_USER':
+            return { ...state, user: action.json, loading: false };
         default:
             return state;
     }
