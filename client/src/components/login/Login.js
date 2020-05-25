@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
-import API from "../../api/api";
-import { toast } from "react-toastify";
+import { connect } from 'react-redux';
+import { loginUser } from "../../redux/actions/action";
 
-function Login({ history }) {
+function Login({ history, loginUser, user, article }) {
     const [userData, setUserData] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({});
 
@@ -32,9 +33,9 @@ function Login({ history }) {
 
     function handleSave(event) {
         event.preventDefault();
-        setUserData({ email: "", password: "" });
         if (!formIsValid()) return;
-        history.push("/news");
+        loginUser(userData);
+        // history.push("/news");
         // API.loginUser(userData)
         //     .then(() => {
         //         toast.success("Register Success!!!")
@@ -83,9 +84,35 @@ function Login({ history }) {
                 <Button variant="primary" type="submit">
                     Login
                 </Button>
+                <Link to="/news">
+                <Button variant="primary" type="submit">
+                    News
+                </Button>
+                </Link>
+                {(user) ? (
+                <h2>{user}</h2>
+            ) : (<h2>nothing</h2>)}
+                        {console.log({ article })}
+            {(article) ? (
+                article.map((item) => (
+                    <h1>{item.title}</h1>
+                ))
+            ) : (<h2>nothing</h2>)}
+            {(user) ? (
+                <h2>{user}</h2>
+            ) : (<h2>nothing</h2>)}
             </Form>
         </div>
     )
 }
 
-export default Login;
+const mapDispatchToProps = {
+    loginUser: loginUser,
+};
+
+const mapStateToProps = (state) => ({
+    user: state.log,
+    article: state.news,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

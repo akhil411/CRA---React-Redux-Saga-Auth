@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { getNews } from '../../redux/actions/action';
 
-const News = ({ getNews, article }) => {
+const News = ({ getNews, article, user }) => {
     return (
         <div>
             <button onClick={getNews}>Press to see news</button>
@@ -16,6 +15,9 @@ const News = ({ getNews, article }) => {
                     <h1>{item.title}</h1>
                 ))
             ) : (<h2>nothing</h2>)}
+            {(user) ? (
+                <h2>{user}</h2>
+            ) : (<h2>nothing</h2>)}
         </div>
     )
 }
@@ -25,7 +27,8 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => ({
-    article: state.news
+    article: state.news,
+    user:state.log,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(News);

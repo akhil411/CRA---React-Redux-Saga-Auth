@@ -6,4 +6,7 @@ const axios = require("axios");
 router.route("/register")
     .post(userController.register);
 
+router.route("/login")
+    .post(userController.login);
+
 module.exports = router;
