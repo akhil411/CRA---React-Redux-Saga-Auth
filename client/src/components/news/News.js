@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getNews } from '../../redux/actions/action';
 
-const News = ({ getNews, article, user }) => {
+const News = ({ getNews, article,}) => {
     return (
         <div>
             <button onClick={getNews}>Press to see news</button>
@@ -15,9 +15,6 @@ const News = ({ getNews, article, user }) => {
                     <h1>{item.title}</h1>
                 ))
             ) : (<h2>nothing</h2>)}
-            {(user) ? (
-                <h2>{user}</h2>
-            ) : (<h2>nothing</h2>)}
         </div>
     )
 }
@@ -27,8 +24,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => ({
-    article: state.news,
-    user:state.log,
+    article: state.newsReducer.news,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(News);

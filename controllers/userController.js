@@ -52,9 +52,8 @@ module.exports = {
         db.User.findOne({ email }).then(user => {
             // Check if user exists
             if (!user) {
-                return res.status(404).json({ emailnotfound: "Email not found" });
+                return res.status(404).json("Email not found");
             }
-            console.log(user);
             // Check password
             bcrypt.compare(password, user.password).then(isMatch => {
                 if (isMatch) {
@@ -69,7 +68,7 @@ module.exports = {
                         payload,
                         keys.secretOrKey,
                         {
-                            expiresIn: 31556926 // 1 year in seconds
+                            expiresIn: 300 // 1 year in seconds
                         },
                         (err, token) => {
                             res.json({
@@ -81,7 +80,7 @@ module.exports = {
                 } else {
                     return res
                         .status(400)
-                        .json({ passwordincorrect: "Password incorrect" });
+                        .json("Password incorrect");
                 }
             });
         });

@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { loginUser } from "../../redux/actions/action";
 
-function Login({ history, loginUser, user, article }) {
+const Login = ({ 
+    history, 
+    loginUser, 
+    loginError,
+    isAuthenticated,
+ }) => {
     const [userData, setUserData] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            history.push("/");
+          }
+    }, [isAuthenticated,history]);
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -35,25 +45,6 @@ function Login({ history, loginUser, user, article }) {
         event.preventDefault();
         if (!formIsValid()) return;
         loginUser(userData);
-        // history.push("/news");
-        // API.loginUser(userData)
-        //     .then(() => {
-        //         toast.success("Register Success!!!")
-        //         history.push("/login");
-        //     })
-        //     .catch((err) => {
-        //         console.log(err.response);
-        //     })
-        // setSaving(true);
-        // saveCourse(course)
-        //     .then(() => {
-        //         toast.success("Course saved.");
-        //         history.push("/courses");
-        //     })
-        //     .catch(error => {
-        //         setSaving(false);
-        //         setErrors({ onSave: error.message });
-        //     });
     }
 
     return (
@@ -84,21 +75,10 @@ function Login({ history, loginUser, user, article }) {
                 <Button variant="primary" type="submit">
                     Login
                 </Button>
-                <Link to="/news">
-                    <Button variant="primary" type="submit">
-                        News
-                </Button>
-                </Link>
-                {(article) ? (
-                    article.map((item) => (
-                        <h1>{item.title}</h1>
-                    ))
-                ) : (<h2>nothing</h2>)}
-
-                {(user) ? (
-                    console.log(user)
-                ) : (null)}
             </Form>
+            {(loginError) ? (
+                    <p>{loginError}</p>
+                ) : (null)} 
         </div>
     )
 }
@@ -108,8 +88,8 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (state) => ({
-    user: state.user,
-    article: state.news,
+    isAuthenticated: state.userReducer.isAuthenticated,
+    loginError:state.userReducer.loginError
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,15 +1,12 @@
-const isEmpty = require("is-empty");
 
-const reducer = (state = {}, action) => {
+const newsReducer = (state = {}, action) => {
     switch (action.type) {
         case 'GET_NEWS':
             return { ...state, loading: true };
         case 'NEWS_RECEIVED':
             return { ...state, news: action.json, loading: false };
-        case 'SET_CURRENT_USER':
-            return { ...state, user: action.json, loading: false };
         default:
             return state;
     }
 };
-export default reducer;
+export default newsReducer;
