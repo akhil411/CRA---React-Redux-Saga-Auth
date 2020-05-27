@@ -3,7 +3,8 @@ export const getNews = () => ({
 });
 
 export const loginUser = (userData) => ({
-    type: 'LOGIN_USER', userData
+    type: 'LOGIN_USER',
+    userData
 });
 
 export const logOutUser = () => ({
@@ -11,5 +12,6 @@ export const logOutUser = () => ({
 });
 
 export const setCurrentUser = (json) => ({
-    type: 'SET_CURRENT_USER', json
+    type: 'SET_CURRENT_USER',
+    json
 });

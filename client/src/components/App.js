@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import setAuthToken from "../redux/utils/setAuthToken";
+import setAuthToken from "../utils/setAuthToken";
 import HomePage from "./home/HomePage";
 import Header from "./common/Header";
 import PageNotFound from "./PageNotFound";
@@ -9,6 +9,7 @@ import Register from "./register/Register";
 import Login from "./login/Login";
 import News from "./news/News";
 import Account from "./account/Account";
+import PrivateRoute from "./PrivateRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { connect } from 'react-redux';
@@ -42,10 +43,10 @@ const App = ({
             <Header />
             <Switch>
                 <Route exact path="/" component={HomePage} />
-                <Route path="/login" component={Login} />
-                <Route path="/register" component={Register} />
-                <Route path="/news" component={News} />
-                <Route path="/account" component={Account} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/news" component={News} />
+                <PrivateRoute exact path="/account" component={Account} />
                 <Route component={PageNotFound} />
             </Switch>
             <ToastContainer
